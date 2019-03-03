@@ -72,7 +72,7 @@ def deadend():
     return (msg,suggestion)
 
 def fight():
-    msg = "You draw your weapon and slash at you enemy. Your fate now rests in the hands of Chance, Roll a 6 sided die and your success depends on getting a score on more than half."
+    msg = "You draw your weapon and slash at you enemy. Your fate now rests in the hands of Chance, Roll a 6 sided die and your success depends on getting a score of more than half."
     suggestion = [{"title": "Roll Die"}]
     return (msg,suggestion)
 
@@ -90,11 +90,11 @@ def RollDie():
 
 def makeWebhookResult(req):
     suggestion=[]
-    ImageURL = "https://storage.googleapis.com/master-hoo.appspot.com/white.png"
+    ImageURL = ""
     msg=""
     media = ""
     display_text = ""
-    hints = True#client.get('hints', True)
+    hints = client.get('hints', False)
     TREE = "https://storage.googleapis.com/master-hoo.appspot.com/deadTree.png"
     FOREST = "https://storage.googleapis.com/master-hoo.appspot.com/forest.png"
     CTHULU = "https://storage.googleapis.com/master-hoo.appspot.com/cthulu.png"
@@ -188,7 +188,7 @@ def makeWebhookResult(req):
     suggestion = suggestion if str(hints)=='True' else []
     # print hints, suggestion
     display_text = msg if not display_text else display_text
-    basicCard = {"image": {"url": ImageURL,"accessibilityText": ""},"imageDisplayOptions": "DEFAULT"} if ImageURL else {}
+    basicCard = {} if not ImageURL else {"image": {"url": ImageURL,"accessibilityText": ""},"imageDisplayOptions": "DEFAULT"}
     print(display_text)
     client.set('suggestion', suggestion)
     client.set('msg', msg)
